@@ -10,3 +10,6 @@ export interface RateLimiterResult{
 export interface RateLimiter {
   check(key: string): RateLimiterResult;
 }
+export interface Bucket{
+  
+}
