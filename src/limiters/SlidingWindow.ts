@@ -1,4 +1,4 @@
-import { type RateLimiter, type RateLimiterResult } from "./types";
+import { type RateLimiter, type RateLimiterResult } from "./types.js";
 
 interface windowcounter {
     previouscount: number;

@@ -1,5 +1,5 @@
 //interface, header, cleanup still remaining
-import {type RateLimiter, type RateLimiterResult} from "./types";
+import {type RateLimiter, type RateLimiterResult} from "./types.js";
 export class FixedWindowLimiter implements RateLimiter{
     private store = new Map<string,{  //"user:123"
         count:number,              //count : 4

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { FixedWindowLimiter } from "../limiters/FixedWindow";
+import { FixedWindowLimiter } from "../limiters/FixedWindow.js";
 
 describe("FixedWindowLimiter", () => {
   it("blocks the 3rd request", () => {   //test 1 limit is 2 req more than 2 will be block

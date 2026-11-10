@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import { FixedWindowLimiter } from "../limiters/FixedWindowLimiter";
+import { FixedWindowLimiter } from "./limiters/FixedWindow.js";
 
 const app = Fastify();
 const limiter = new FixedWindowLimiter(2, 60000);
