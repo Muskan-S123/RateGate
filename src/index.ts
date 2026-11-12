@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import { connectRedis } from "./redis/client.js";
 import { FixedWindowLimiter } from "./limiters/FixedWindow.js";
 
 const app = Fastify();
@@ -13,10 +14,16 @@ app.addHook("onRequest", async (request, reply) => {
 
 app.get("/", async () => ({ message: "hello" }));
 
-app.listen({ port: 3000 }, (err) => {
-  if (err) {
-    console.error(err);
+async function start(){
+  try{
+    await connectRedis();
+    await app.listen({port:3000});
+    console.log("running on http://localhost:3000");
+
+  }catch(err){
+    console.log("Failed to start a server:", err);
     process.exit(1);
+
   }
-  console.log("running on http://localhost:3000");
-});
+}
+start();

@@ -10,6 +10,7 @@ export interface RateLimiterResult{
 export interface RateLimiter {
   check(key: string): RateLimiterResult;
 }
-export interface Bucket{
-  
+
+export interface AsyncRateLimiter{
+  check(key: string): Promise<RateLimiterResult>;
 }

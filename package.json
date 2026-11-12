@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^5.12.8"
+    "fastify": "^5.12.8",
+    "redis": "^6.3.1"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -18,5 +19,8 @@
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   },
-  "description": ""
+  "description": "",
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
 }
