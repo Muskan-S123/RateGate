@@ -21,7 +21,7 @@ export class SlidingWindowCounterLimiter implements RateLimiter {
             throw new Error("windowMs must be positive");
         }
     }
-    check(key: string): RateLimiterResult {
+    async check(key: string): Promise<RateLimiterResult> {
         const now = this.now();
         const currentwindowstart = Math.floor(now / this.windowsMs) * this.windowsMs;
         let entry = this.store.get(key);// entry means data stored for one particular user

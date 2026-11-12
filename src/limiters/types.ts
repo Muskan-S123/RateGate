@@ -8,9 +8,5 @@ export interface RateLimiterResult{
 
 }
 export interface RateLimiter {
-  check(key: string): RateLimiterResult;
-}
-
-export interface AsyncRateLimiter{
   check(key: string): Promise<RateLimiterResult>;
 }

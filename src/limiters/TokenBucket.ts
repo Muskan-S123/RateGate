@@ -19,7 +19,7 @@ export class TokenBucketLimiter implements RateLimiter{
             throw new Error("refillrate must be positive")
         }
     }
-    check(key:string): RateLimiterResult{
+    async check(key:string): Promise<RateLimiterResult>{
         const now=this.now();       
         let bucket=this.store.get(key);   //find and get a bucket if bucket is missing create one
         if(!bucket){ 

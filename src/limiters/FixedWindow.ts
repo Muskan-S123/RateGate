@@ -18,7 +18,7 @@ export class FixedWindowLimiter implements RateLimiter{
             throw new Error("Window duration must be positive");
         }
     }
-    check(key:string): RateLimiterResult{  //user:
+    async check(key:string): Promise<RateLimiterResult>{  //user:
         const now=this.now();
         let entry=this.store.get(key); //if key is never seen then entry is undefined ,if seen entry is {count, start}
         if(!entry||now-entry.start >= this.windowsMS){

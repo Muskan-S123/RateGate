@@ -1,7 +1,7 @@
 import redis from "../redis/client.js";
-import { type AsyncRateLimiter, type RateLimiterResult } from "./types.js";
+import { type RateLimiter, type RateLimiterResult } from "./types.js";
 
-export class RedisFixedWindow implements AsyncRateLimiter{
+export class RedisFixedWindow implements RateLimiter{
     constructor(
         private max:number,
         private windowsMs:number

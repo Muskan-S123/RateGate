@@ -1,12 +1,12 @@
 import Fastify from "fastify";
 import { connectRedis } from "./redis/client.js";
-import { FixedWindowLimiter } from "./limiters/FixedWindow.js";
+import { RedisFixedWindow } from "./limiters/RedisFixedWindow.js";
 
 const app = Fastify();
-const limiter = new FixedWindowLimiter(2, 60000);
+const limiter = new RedisFixedWindow(2, 60000);
 
 app.addHook("onRequest", async (request, reply) => {
-  const result = limiter.check(request.ip);
+  const result = await limiter.check(request.ip);
   if (!result.allowed) {
     return reply.code(429).send({ error: "Too many requests" });
   }

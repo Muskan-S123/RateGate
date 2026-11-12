@@ -1,4 +1,5 @@
 
+
 import { describe, it, expect } from "vitest";
 import { SlidingWindowCounterLimiter } from "../limiters/SlidingWindow.js";
 
@@ -15,98 +16,90 @@ describe("SlidingWindowCounterLimiter", () => {
         );
     };
 
-    it("allows the first request", () => {
+    it("allows the first request", async () => {
         const limiter = createLimiter();
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(4);
     });
 
-    it("allows requests until the limit is reached", () => {
+    it("allows requests until the limit is reached", async () => {
         const limiter = createLimiter(3);
 
-        limiter.check("user1");
-        limiter.check("user1");
+        await limiter.check("user1");
+        await limiter.check("user1");
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(0);
     });
 
-    it("rejects requests after the limit is reached", () => {
+    it("rejects requests after the limit is reached", async () => {
         const limiter = createLimiter(2);
 
-        limiter.check("user1");
-        limiter.check("user1");
+        await limiter.check("user1");
+        await limiter.check("user1");
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
         expect(result.allowed).toBe(false);
         expect(result.remaining).toBe(0);
     });
 
-    it("calculates the weighted previous window count", () => {
+    it("calculates the weighted previous window count", async () => {
         const limiter = createLimiter(10);
 
-        // Add 8 requests in the previous window.
         for (let i = 0; i < 8; i++) {
-            limiter.check("user1");
+            await limiter.check("user1");
         }
 
-        // Move to 15 seconds into the next window.
         currentTime = 75_000;
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
-        // Previous count = 8
-        // Weight = (60 - 15) / 60 = 0.75
-        // Estimated previous count = 8 * 0.75 = 6
-        // One new request is allowed.
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(3);
     });
 
-    it("moves the current count into the previous count after one window", () => {
+    it("moves the current count into the previous count after one window", async () => {
         const limiter = createLimiter(5);
 
-        limiter.check("user1");
-        limiter.check("user1");
+        await limiter.check("user1");
+        await limiter.check("user1");
 
         currentTime = 60_000;
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
-        // Previous count = 2, weight = 1.
-        // Estimated count before this request = 2.
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(2);
     });
 
-    it("resets old counts when multiple windows have passed", () => {
+    it("resets old counts when multiple windows have passed", async () => {
         const limiter = createLimiter(3);
 
-        limiter.check("user1");
-        limiter.check("user1");
-        limiter.check("user1");
+        await limiter.check("user1");
+        await limiter.check("user1");
+        await limiter.check("user1");
 
         currentTime = 180_000;
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(2);
     });
 
-    it("keeps different users independent", () => {
+    it("keeps different users independent", async () => {
         const limiter = createLimiter(2);
 
-        limiter.check("user1");
-        limiter.check("user1");
+        await limiter.check("user1");
+        await limiter.check("user1");
 
-        const result = limiter.check("user2");
+        const result = await limiter.check("user2");
 
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(1);
@@ -122,12 +115,12 @@ describe("SlidingWindowCounterLimiter", () => {
         ).toThrow();
     });
 
-    it("returns the current window reset time", () => {
+    it("returns the current window reset time", async () => {
         const limiter = createLimiter(5);
 
         currentTime = 10_000;
 
-        const result = limiter.check("user1");
+        const result = await limiter.check("user1");
 
         expect(result.resetAt).toBe(60_000);
     });
