@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from "vitest";
-import { FixedWindowLimiter } from "../limiters/FixedWindow.js";
+import { FixedWindowLimiter } from "../../src/limiters/memory/FixedWindow.js";
 
 describe("FixedWindowLimiter", () => {
   it("blocks the 3rd request", async () => {

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
-import redis, { connectRedis } from "../redis/client.js";
-import { RedisTokenBucket } from "../limiters/RedisTokenBucket.js";
+import redis, { connectRedis } from "../../src/config/client.js";
+import { RedisTokenBucket } from "../../src/limiters/redis/RedisTokenBucket.js";
 describe("RedisTokenBucket", () => {
     const limiter = new RedisTokenBucket(3, 1);
     const testKeys = [

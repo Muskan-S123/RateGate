@@ -1,7 +1,7 @@
 
 
 import { describe, it, expect } from "vitest";
-import { TokenBucketLimiter } from "../limiters/TokenBucket.js";
+import { TokenBucketLimiter } from "../../src/limiters/memory/TokenBucket.js";
 
 describe("TokenBucketLimiter", () => {
     let currentTime = 1000;

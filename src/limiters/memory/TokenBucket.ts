@@ -1,4 +1,4 @@
-import {type RateLimiter, type RateLimiterResult} from "./types.js";
+import {type RateLimiter, type RateLimiterResult} from "../../core/types.js";
 interface Bucket{
     tokens:number;
     lastrefill:number;

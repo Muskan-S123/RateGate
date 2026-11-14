@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
-import redis from "../redis/client.js";
-import { connectRedis } from "../redis/client.js";
-import { RedisFixedWindow } from "../limiters/RedisFixedWindow.js";
+import redis from "../../src/config/client.js";
+import { connectRedis } from "../../src/config/client.js";
+import { RedisFixedWindow } from "../../src/limiters/redis/RedisFixedWindow.js";
 
 describe("RedisFixedWindow", () => {
     const limiter = new RedisFixedWindow(2, 60000);

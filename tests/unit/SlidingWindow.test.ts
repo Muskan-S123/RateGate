@@ -1,7 +1,7 @@
 
 
 import { describe, it, expect } from "vitest";
-import { SlidingWindowCounterLimiter } from "../limiters/SlidingWindow.js";
+import { SlidingWindowCounterLimiter } from "../../src/limiters/memory/SlidingWindow.js";
 
 describe("SlidingWindowCounterLimiter", () => {
     let currentTime = 0;

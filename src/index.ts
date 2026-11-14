@@ -1,6 +1,6 @@
 import Fastify from "fastify";
-import { connectRedis } from "./redis/client.js";
-import { RedisFixedWindow } from "./limiters/RedisFixedWindow.js";
+import { connectRedis } from "./config/client.js";
+import { RedisFixedWindow } from "./limiters/redis/RedisFixedWindow.js";
 
 const app = Fastify();
 const limiter = new RedisFixedWindow(2, 60000);

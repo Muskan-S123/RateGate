@@ -1,6 +1,6 @@
 import { resourceUsage } from "node:process";
-import redis from "../redis/client.js";
-import { type RateLimiter, type RateLimiterResult } from "./types.js";
+import redis from "../../config/client.js";
+import { type RateLimiter, type RateLimiterResult } from "../../core/types.js";
 const TOKEN_BUCKET_SCRIPT=`
     local time=redis.call("TIME")
 
