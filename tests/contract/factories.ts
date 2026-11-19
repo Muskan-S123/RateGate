@@ -60,7 +60,7 @@ export const TokenBucketFactory: LimiterFactory={
     supportsTimeTravel:true,
     make(){
         const clock=new FakeClock();
-        const limiter=new TokenBucketLimiter(2, 1, ()=>clock.now());//capacity, refillrate,now
+        const limiter=new TokenBucketLimiter(LIMIT, 1, ()=>clock.now());//capacity, refillrate,now
         return{
             limiter,
             advance:(ms)=>clock.advance(ms),
@@ -76,7 +76,7 @@ export const SlidingWindowFactory:LimiterFactory={
     supportsTimeTravel:true,
     make(){
         const clock=new FakeClock();
-        const limiter=new SlidingWindowCounterLimiter(2, 60000, ()=>clock.now());//limit, windowMs, now
+        const limiter=new SlidingWindowCounterLimiter(LIMIT, WINDOW_MS, ()=>clock.now());//limit, windowMs, now
         return{
             limiter,
             advance:(ms)=>clock.advance(ms),
@@ -126,18 +126,18 @@ function CreateRedisFactory(
 export const RedisFixedWindowFactory = CreateRedisFactory(
     "RedisFixedWindow",
     "rate:fixed:",
-    () => new RedisFixedWindow(2, 60000)
+    () => new RedisFixedWindow(LIMIT, WINDOW_MS)
 );
 
 export const RedisTokenBucketFactory = CreateRedisFactory(
     "RedisTokenBucket",
     "rate:token:",
-    () => new RedisTokenBucket(2, 1)
+    () => new RedisTokenBucket(LIMIT, 1)
 );
 
 export const RedisSlidingWindowFactory = CreateRedisFactory(
     "RedisSlidingWindow",
     "rate:sliding:",
-    () => new RedisSlidingWindow(2, 60000)
+    () => new RedisSlidingWindow(LIMIT, WINDOW_MS)
 );
 
